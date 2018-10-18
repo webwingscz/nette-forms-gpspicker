@@ -12,7 +12,7 @@
         {
             "name": "Jiří Dorazil",
             "email": "juradee@gmail.com"
-        },
+        }
     ],
     "require": {
         "php": ">=7.0.0",
