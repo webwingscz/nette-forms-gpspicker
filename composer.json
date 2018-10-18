@@ -1,5 +1,5 @@
 {
-    "name": "vojtech-dobes/nette-forms-gpspicker",
+    "name": "webwings/nette-forms-gpspicker",
     "description": "Google Maps based picker of coordinates for Nette Framework.",
     "keywords": ["nette", "forms", "maps", "gps"],
     "homepage": "http://github.com/vojtech-dobes/nette-forms-gpspicker",
@@ -8,11 +8,15 @@
         {
             "name": "Vojtěch Dobeš",
             "email": "me@vojtechdobes.com"
-        }
+        },
+        {
+            "name": "Jiří Dorazil",
+            "email": "juradee@gmail.com"
+        },
     ],
     "require": {
-        "php": ">=5.3.2",
-        "nette/nette": ">=2.1.0,<2.4"
+        "php": ">=7.0.0",
+        "nette/nette": ">=2.4.0"
     },
     "autoload": {
         "classmap": ["src/"]

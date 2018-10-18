@@ -10,8 +10,10 @@ use Nette;
  *
  * @author Vojtěch Dobeš
  */
-class GpsPoint extends Nette\Object
+class GpsPoint
 {
+
+    use Nette\SmartObject;
 
 	/** @var float */
 	private $lat;
