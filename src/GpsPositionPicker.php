@@ -25,8 +25,10 @@ class GpsPositionPicker extends GpsPicker
 	private $lng;
 
 
-
-	protected function getSupportedDrivers()
+    /**
+     * @return array
+     */
+	protected function getSupportedDrivers(): array
 	{
 		return array(
 			self::DRIVER_GOOGLE,
@@ -37,15 +39,19 @@ class GpsPositionPicker extends GpsPicker
 	}
 
 
-
-	protected function getShape()
+    /**
+     * @return string
+     */
+	protected function getShape(): string
 	{
 		return 'point';
 	}
 
 
-
-	protected function getParts()
+    /**
+     * @return array
+     */
+	protected function getParts(): array
 	{
 		return array(
 			'lat' => array(
@@ -66,8 +72,7 @@ class GpsPositionPicker extends GpsPicker
 	}
 
 
-
-	public function loadHttpData()
+	public function loadHttpData(): void
 	{
 		parent::loadHttpData();
 		$this->lat = $this->getHttpData(Form::DATA_LINE, '[lat]');
@@ -81,14 +86,17 @@ class GpsPositionPicker extends GpsPicker
 	 *
 	 * @return GpsPoint
 	 */
-	public function getValue()
+	public function getValue(): GpsPoint
 	{
 		return new GpsPoint($this->lat, $this->lng, $this->search);
 	}
 
 
-
-	public function setValue($coordinates)
+    /**
+     * @param mixed $coordinates
+     * @return $this
+     */
+	public function setValue($coordinates): self
 	{
 		if ($coordinates === NULL) {
 			$this->lat = self::DEFAULT_LAT;
@@ -115,44 +123,68 @@ class GpsPositionPicker extends GpsPicker
 /* === Validation =========================================================== */
 
 
-
-	public static function validateMaxLat(IControl $control, $maxLat)
+    /**
+     * @param IControl $control
+     * @param $maxLat
+     * @return bool
+     */
+	public static function validateMaxLat(IControl $control, $maxLat): bool
 	{
 		return $control->getValue()->getLat() <= $maxLat;
 	}
 
 
-
-	public static function validateMaxLng(IControl $control, $maxLng)
+    /**
+     * @param IControl $control
+     * @param $maxLng
+     * @return bool
+     */
+	public static function validateMaxLng(IControl $control, $maxLng): bool
 	{
 		return $control->getValue()->getLng() <= $maxLng;
 	}
 
 
-
-	public static function validateMinLat(IControl $control, $minLat)
+    /**
+     * @param IControl $control
+     * @param $minLat
+     * @return bool
+     */
+	public static function validateMinLat(IControl $control, $minLat): bool
 	{
 		return $control->getValue()->getLat() >= $minLat;
 	}
 
 
-
-	public static function validateMinLng(IControl $control, $minLng)
+    /**
+     * @param IControl $control
+     * @param $minLng
+     * @return bool
+     */
+	public static function validateMinLng(IControl $control, $minLng): bool
 	{
 		return $control->getValue()->getLng() >= $minLng;
 	}
 
 
-
-	public static function validateMaxDistanceFrom(IControl $control, array $args)
+    /**
+     * @param IControl $control
+     * @param array $args
+     * @return bool
+     */
+	public static function validateMaxDistanceFrom(IControl $control, array $args): bool
 	{
 		list($distance, $point) = $args;
 		return $control->getValue()->getDistanceTo(new GpsPoint($point)) <= $distance;
 	}
 
 
-
-	public static function validateMinDistanceFrom(IControl $control, array $args)
+    /**
+     * @param IControl $control
+     * @param array $args
+     * @return bool
+     */
+	public static function validateMinDistanceFrom(IControl $control, array $args): bool
 	{
 		list($distance, $point) = $args;
 		return $control->getValue()->getDistanceTo(new GpsPoint($point)) >= $distance;
@@ -163,14 +195,14 @@ class GpsPositionPicker extends GpsPicker
 /* === Use helper =========================================================== */
 
 
-
-	/**
-	 * Registers method 'addGpsPicker' adding GpsPositionPicker to form
-	 *
-	 * @param  string default driver
-	 * @param  string default type
-	 */
-	public static function register($driver = GpsPicker::DRIVER_GOOGLE, $type = GpsPicker::TYPE_ROADMAP)
+    /**
+     * Registers method 'addGpsPicker' adding GpsPositionPicker to form
+     *
+     * @param string default driver
+     * @param string default type
+     * @return array
+     */
+	public static function register(string $driver = GpsPicker::DRIVER_GOOGLE, string $type = GpsPicker::TYPE_ROADMAP): array
 	{
 		Container::extensionMethod('addGpsPicker', function ($container, $name, $caption = NULL, $options = array()) use ($driver, $type) {
 			if (!isset($options['driver'])) {

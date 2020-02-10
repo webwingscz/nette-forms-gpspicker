@@ -28,8 +28,7 @@ class GpsPickerExtension extends DI\CompilerExtension
 	);
 
 
-
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$container = $this->getContainerBuilder();
 
@@ -38,8 +37,10 @@ class GpsPickerExtension extends DI\CompilerExtension
 	}
 
 
-
-	public function afterCompile(PhpGenerator\ClassType $class)
+    /**
+     * @param PhpGenerator\ClassType $class
+     */
+	public function afterCompile(PhpGenerator\ClassType $class): void
 	{
 		$config = $this->getConfig($this->defaultConfig);
 		$type = strtoupper($config['type']);

@@ -17,7 +17,10 @@ if (!class_exists('Latte\Compiler') && class_exists('Nette\Latte\Compiler')) {
 class GpsPickerMacros extends Latte\Macros\MacroSet
 {
 
-	public static function install(Latte\Compiler $compiler)
+    /**
+     * @param Latte\Compiler $compiler
+     */
+	public static function install(Latte\Compiler $compiler): void
 	{
 		$me = new static($compiler);
 		$me->addMacro('gpspicker', '$_gpspicker = $_form[%node.word]; $_gpspickerControl = $_gpspicker->getControl(TRUE); echo $_gpspickerControl->addAttributes(%node.array)->startTag()', 'echo $_gpspickerControl->endTag(); unset($_gpspicker, $_gpspickerControl)');
@@ -26,8 +29,12 @@ class GpsPickerMacros extends Latte\Macros\MacroSet
 	}
 
 
-
-	public function macroInput(Latte\MacroNode $node, Latte\PhpWriter $writer)
+    /**
+     * @param Latte\MacroNode $node
+     * @param Latte\PhpWriter $writer
+     * @throws Latte\CompileException
+     */
+	public function macroInput(Latte\MacroNode $node, Latte\PhpWriter $writer): void
 	{
 		while ($node->parentNode) {
 			if ($node->parentNode->name == 'gpspicker') {
@@ -40,8 +47,12 @@ class GpsPickerMacros extends Latte\Macros\MacroSet
 	}
 
 
-
-	public function macroLabel(Latte\MacroNode $node, Latte\PhpWriter $writer)
+    /**
+     * @param Latte\MacroNode $node
+     * @param Latte\PhpWriter $writer
+     * @throws Latte\CompileException
+     */
+	public function macroLabel(Latte\MacroNode $node, Latte\PhpWriter $writer): void
 	{
 		while ($node->parentNode) {
 			if ($node->parentNode->name == 'gpspicker') {

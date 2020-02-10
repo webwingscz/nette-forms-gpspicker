@@ -50,7 +50,7 @@ class GpsPoint
 	 *
 	 * @return float
 	 */
-	public function getLat()
+	public function getLat(): float
 	{
 		return $this->lat;
 	}
@@ -62,7 +62,7 @@ class GpsPoint
 	 *
 	 * @return float
 	 */
-	public function getLng()
+	public function getLng(): float
 	{
 		return $this->lng;
 	}
@@ -90,7 +90,7 @@ class GpsPoint
 	 * @param  GpsPoint
 	 * @return float distance in metres
 	 */
-	public function getDistanceTo(GpsPoint $point)
+	public function getDistanceTo(GpsPoint $point): float
 	{
 		return acos(
 			cos(deg2rad($this->lat))*cos(deg2rad($this->lng))*cos(deg2rad($point->lat))*cos(deg2rad($point->lng))

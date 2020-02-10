@@ -199,19 +199,19 @@ abstract class GpsPicker extends BaseControl
 
 
 
-	public function loadHttpData()
+	public function loadHttpData(): void
 	{
 		$this->search = $this->getHttpData(Form::DATA_LINE, '[search]');
 	}
 
 
-
-	/**
-	 * Finalizes and returns control's element
-	 *
-	 * @return Html
-	 */
-	public function getControl($onlyContainer = FALSE)
+    /**
+     * Finalizes and returns control's element
+     *
+     * @param bool $onlyContainer
+     * @return Html|string
+     */
+	public function getControl(bool $onlyContainer = FALSE)
 	{
 		$control = parent::getControl();
 		$container = Html::el('div');
@@ -250,8 +250,11 @@ abstract class GpsPicker extends BaseControl
 	}
 
 
-
-	public function getPartialControl($name)
+    /**
+     * @param string $name
+     * @return Html|string
+     */
+	public function getPartialControl(string $name)
 	{
 		if ($name == 'search') {
 			return $this->getSearchControlPrototype();
@@ -286,8 +289,11 @@ abstract class GpsPicker extends BaseControl
 	}
 
 
-
-	public function getPartialLabel($name)
+    /**
+     * @param string $name
+     * @return Html|string
+     */
+	public function getPartialLabel(string $name)
 	{
 		if ($name == 'search') {
 			$label = clone parent::getLabel();
@@ -310,7 +316,9 @@ abstract class GpsPicker extends BaseControl
 	}
 
 
-
+    /**
+     * @return Html
+     */
 	public function getSearchControlPrototype()
 	{
 		if (!$this->searchControlPrototype) {
@@ -328,8 +336,10 @@ abstract class GpsPicker extends BaseControl
 	}
 
 
-
-	private function getExportedRules()
+    /**
+     * @return array
+     */
+	private function getExportedRules(): array
 	{
 		if (!isset($this->exportedRules)) {
 			if (method_exists('Nette\Forms\Helpers', 'exportRules')) {
@@ -351,7 +361,7 @@ abstract class GpsPicker extends BaseControl
 	 * @param  array $data
 	 * @return string
 	 */
-	private function prepareDataAttributes(array $data)
+	private function prepareDataAttributes(array $data): string
 	{
 		$data = json_encode($data);
 		$data = preg_replace('#"([a-z0-9]+)":#i', '$1:', $data);
@@ -364,15 +374,14 @@ abstract class GpsPicker extends BaseControl
 /* === Options ============================================================== */
 
 
-
-	/**
-	 * Sets size of map element
-	 *
-	 * @param  mixed $x
-	 * @param  mixed $y
-	 * @return provides a fluent interface
-	 */
-	public function setSize($x, $y)
+    /**
+     * Sets size of map element
+     *
+     * @param mixed $x
+     * @param mixed $y
+     * @return GpsPicker a fluent interface
+     */
+	public function setSize($x, $y): self
 	{
 		$this->size = array(
 			'x' => $x ?: ($x === 0 ? 0 : $this->size['x']),
@@ -390,7 +399,7 @@ abstract class GpsPicker extends BaseControl
 	 * @param  int
 	 * @return GpsPicker provides a fluent interface
 	 */
-	public function setZoom($zoom)
+	public function setZoom($zoom): self
 	{
 		$this->zoom = (int) $zoom ?: self::DEFAULT_ZOOM;
 
@@ -398,15 +407,13 @@ abstract class GpsPicker extends BaseControl
 	}
 
 
-
-	/**
-	 * Sets default driver of map
-	 *
-	 * @param  string self::DRIVER_*
-	 * @return provides a fluent interface
-	 * @throws InvalidArgumentException if provided driver is not supported for current shape
-	 */
-	public function setDriver($driver)
+    /**
+     * Sets default driver of map
+     *
+     * @param string self::DRIVER_*
+     * @return GpsPicker a fluent interface
+     */
+	public function setDriver(string $driver): self
 	{
 		$driver = (string) $driver;
 		if (in_array($driver, $this->getSupportedDrivers()) === FALSE) {
@@ -425,14 +432,13 @@ abstract class GpsPicker extends BaseControl
 	}
 
 
-
-	/**
-	 * Sets default type of map
-	 *
-	 * @param  string self::TYPE_*
-	 * @return provides a fluent interface
-	 */
-	public function setType($type)
+    /**
+     * Sets default type of map
+     *
+     * @param string self::TYPE_*
+     * @return GpsPicker a fluent interface
+     */
+	public function setType(string $type): self
 	{
 		$type = (string) $type;
 		if (in_array($type, self::$typeSupport[$this->driver]) === FALSE) {
@@ -451,7 +457,7 @@ abstract class GpsPicker extends BaseControl
 	 * @param  bool if TRUE, address will be also returned
 	 * @return GpsPicker provides a fluent interface
 	 */
-	public function enableSearch($addressRetrieval = FALSE)
+	public function enableSearch(bool $addressRetrieval = FALSE): self
 	{
 		if (!self::$searchSupport[$this->driver]) {
 			throw new UnsupportedSearchException("Driver '{$this->driver}' doesn't support search.");
@@ -470,7 +476,7 @@ abstract class GpsPicker extends BaseControl
 	 *
 	 * @return GpsPicker provides a fluent interface
 	 */
-	public function disableSearch()
+	public function disableSearch(): self
 	{
 		$this->showSearch = FALSE;
 
@@ -484,7 +490,7 @@ abstract class GpsPicker extends BaseControl
 	 *
 	 * @return GpsPicker provides a fluent interface
 	 */
-	public function enableManualInput()
+	public function enableManualInput(): self
 	{
 		$this->manualInput = TRUE;
 
@@ -498,7 +504,7 @@ abstract class GpsPicker extends BaseControl
 	 *
 	 * @return GpsPicker provides a fluent interface
 	 */
-	public function disableManualInput()
+	public function disableManualInput(): self
 	{
 		$this->manualInput = FALSE;
 
