@@ -102,10 +102,14 @@ class GpsPositionPicker extends GpsPicker
 			$this->lat = self::DEFAULT_LAT;
 			$this->lng = self::DEFAULT_LNG;
 			$this->search = NULL;
-		} elseif ($coordinates instanceof GpsPoint || $coordinates instanceof \stdClass) {
-			$this->lat = $coordinates->lat;
-			$this->lng = $coordinates->lng;
-			$this->search = isset($coordinates->address) ? $coordinates->address : NULL;
+		} elseif ($coordinates instanceof GpsPoint) {
+            $this->lat = $coordinates->getLat();
+            $this->lng = $coordinates->getLng();
+            $this->search = $coordinates->getAddress();
+        } elseif ($coordinates instanceof \stdClass){
+            $this->lat = $coordinates->lat;
+            $this->lng = $coordinates->lng;
+            $this->search = isset($coordinates->address) ? $coordinates->address : NULL;
 		} elseif (isset($coordinates['lat'])) {
 			$this->lat = (float) $coordinates['lat'];
 			$this->lng = (float) $coordinates['lng'];

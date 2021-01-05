@@ -74,7 +74,7 @@ class GpsPoint
 	 *
 	 * @return string|NULL
 	 */
-	public function getAddress()
+	public function getAddress(): ?string
 	{
 		return $this->address;
 	}

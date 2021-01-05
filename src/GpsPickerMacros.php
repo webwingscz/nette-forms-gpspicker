@@ -34,7 +34,7 @@ class GpsPickerMacros extends Latte\Macros\MacroSet
      * @param Latte\PhpWriter $writer
      * @throws Latte\CompileException
      */
-	public function macroInput(Latte\MacroNode $node, Latte\PhpWriter $writer): void
+	public function macroInput(Latte\MacroNode $node, Latte\PhpWriter $writer): string
 	{
 		while ($node->parentNode) {
 			if ($node->parentNode->name == 'gpspicker') {
@@ -50,9 +50,10 @@ class GpsPickerMacros extends Latte\Macros\MacroSet
     /**
      * @param Latte\MacroNode $node
      * @param Latte\PhpWriter $writer
+     * @return string
      * @throws Latte\CompileException
      */
-	public function macroLabel(Latte\MacroNode $node, Latte\PhpWriter $writer): void
+	public function macroLabel(Latte\MacroNode $node, Latte\PhpWriter $writer): string
 	{
 		while ($node->parentNode) {
 			if ($node->parentNode->name == 'gpspicker') {
